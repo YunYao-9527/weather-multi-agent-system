@@ -1,0 +1,716 @@
+{
+  "tianjin:3": {
+    "key": "tianjin:3",
+    "city": "Tianjin",
+    "month": 3,
+    "sample_count": 35,
+    "coverage_ratio": 1.0,
+    "valid_window": {
+      "start": "2025-03-01",
+      "end": "2025-03-03"
+    },
+    "profile_version": "memory.v2",
+    "code_version": "nogit",
+    "shrinkage": 1.0,
+    "generated_at": "2026-04-02T13:44:03.341173",
+    "agent_weights": {
+      "circulation": 1.0053,
+      "environment": 0.9944,
+      "objective_guidance": 0.9861,
+      "model_consensus": 1.0082,
+      "radar": 1.0079,
+      "nowcast": 1.0048,
+      "data_quality_guard": 0.9931,
+      "cross_source_consistency": 1.0003
+    },
+    "calibrators": {},
+    "schema_version": "memory_profile.v2"
+  },
+  "global:3": {
+    "key": "global:3",
+    "city": "global",
+    "month": 3,
+    "sample_count": 1022,
+    "coverage_ratio": 0.945346,
+    "valid_window": {
+      "start": "2025-03-01",
+      "end": "2025-03-03"
+    },
+    "profile_version": "memory.v2",
+    "code_version": "nogit",
+    "shrinkage": 1.0,
+    "generated_at": "2026-04-02T14:17:45.643665",
+    "agent_weights": {
+      "radar": 1.035258,
+      "circulation": 1.021964,
+      "model_consensus": 1.035844,
+      "objective_guidance": 0.946785,
+      "environment": 0.967676,
+      "nowcast": 1.015642,
+      "cross_source_consistency": 1.001693,
+      "data_quality_guard": 0.975153
+    },
+    "calibrators": {
+      "short_rain": {
+        "method": "histogram",
+        "bins": 12,
+        "bin_rate": [
+          0.00684931506849315,
+          0.00010871928680147858,
+          0.0006226650062266501,
+          0.00684931506849315,
+          0.00684931506849315,
+          0.00684931506849315,
+          0.00684931506849315,
+          0.00684931506849315,
+          0.00684931506849315,
+          0.00684931506849315,
+          0.00684931506849315,
+          0.00684931506849315
+        ],
+        "bin_count": [
+          0,
+          124,
+          20,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "global_rate": 0.006849,
+        "alpha": 0.288,
+        "samples": 144,
+        "ece": 0.142302,
+        "reliability": [
+          {
+            "bin": 1,
+            "count": 124,
+            "mean_confidence": 0.1362,
+            "event_rate": 0.0001
+          },
+          {
+            "bin": 2,
+            "count": 20,
+            "mean_confidence": 0.1814,
+            "event_rate": 0.0006
+          }
+        ]
+      },
+      "wind": {
+        "method": "histogram",
+        "bins": 12,
+        "bin_rate": [
+          0.00684931506849315,
+          0.00684931506849315,
+          0.0005268703898840885,
+          0.00014889815366289457,
+          0.0004892367906066536,
+          0.00228310502283105,
+          0.00684931506849315,
+          0.00684931506849315,
+          0.00684931506849315,
+          0.00684931506849315,
+          0.00684931506849315,
+          0.00684931506849315
+        ],
+        "bin_count": [
+          0,
+          0,
+          24,
+          90,
+          26,
+          4,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "global_rate": 0.006849,
+        "alpha": 0.288,
+        "samples": 144,
+        "ece": 0.293935,
+        "reliability": [
+          {
+            "bin": 2,
+            "count": 24,
+            "mean_confidence": 0.2355,
+            "event_rate": 0.0005
+          },
+          {
+            "bin": 3,
+            "count": 90,
+            "mean_confidence": 0.2816,
+            "event_rate": 0.0001
+          },
+          {
+            "bin": 4,
+            "count": 26,
+            "mean_confidence": 0.3717,
+            "event_rate": 0.0005
+          },
+          {
+            "bin": 5,
+            "count": 4,
+            "mean_confidence": 0.4279,
+            "event_rate": 0.0023
+          }
+        ]
+      },
+      "hail": {
+        "method": "histogram",
+        "bins": 12,
+        "bin_rate": [
+          0.00684931506849315,
+          0.00684931506849315,
+          9.382623381497466e-05,
+          0.00684931506849315,
+          0.00684931506849315,
+          0.00684931506849315,
+          0.00684931506849315,
+          0.00684931506849315,
+          0.00684931506849315,
+          0.00684931506849315,
+          0.00684931506849315,
+          0.00684931506849315
+        ],
+        "bin_count": [
+          0,
+          0,
+          144,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "global_rate": 0.006849,
+        "alpha": 0.288,
+        "samples": 144,
+        "ece": 0.231258,
+        "reliability": [
+          {
+            "bin": 2,
+            "count": 144,
+            "mean_confidence": 0.2314,
+            "event_rate": 0.0001
+          }
+        ]
+      },
+      "tornado": {
+        "method": "histogram",
+        "bins": 12,
+        "bin_rate": [
+          9.382623381497466e-05,
+          0.00684931506849315,
+          0.00684931506849315,
+          0.00684931506849315,
+          0.00684931506849315,
+          0.00684931506849315,
+          0.00684931506849315,
+          0.00684931506849315,
+          0.00684931506849315,
+          0.00684931506849315,
+          0.00684931506849315,
+          0.00684931506849315
+        ],
+        "bin_count": [
+          144,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "global_rate": 0.006849,
+        "alpha": 0.288,
+        "samples": 144,
+        "ece": 0.053673,
+        "reliability": [
+          {
+            "bin": 0,
+            "count": 144,
+            "mean_confidence": 0.0538,
+            "event_rate": 0.0001
+          }
+        ]
+      }
+    },
+    "schema_version": "memory_profile.v2"
+  },
+  "wuhan:3": {
+    "key": "wuhan:3",
+    "city": "WuHan",
+    "month": 3,
+    "sample_count": 423,
+    "coverage_ratio": 0.9306,
+    "valid_window": {
+      "start": "2025-03-01",
+      "end": "2025-03-30"
+    },
+    "profile_version": "memory.v2",
+    "code_version": "nogit",
+    "shrinkage": 1.0,
+    "generated_at": "2026-04-02T14:17:45.643644",
+    "agent_weights": {
+      "circulation": 1.0273,
+      "environment": 0.9592,
+      "objective_guidance": 0.939,
+      "model_consensus": 1.0435,
+      "radar": 1.0427,
+      "nowcast": 1.0125,
+      "data_quality_guard": 0.9723,
+      "cross_source_consistency": 1.0035
+    },
+    "calibrators": {
+      "short_rain": {
+        "method": "histogram",
+        "bins": 12,
+        "bin_rate": [
+          0.00684931506849315,
+          0.0019569471624266144,
+          0.00017340038148083925,
+          0.00021404109589041095,
+          0.00684931506849315,
+          0.00684931506849315,
+          0.00684931506849315,
+          0.00684931506849315,
+          0.00684931506849315,
+          0.00684931506849315,
+          0.00684931506849315,
+          0.00684931506849315
+        ],
+        "bin_count": [
+          0,
+          5,
+          77,
+          62,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "global_rate": 0.006849,
+        "alpha": 0.288,
+        "samples": 144,
+        "ece": 0.232472,
+        "reliability": [
+          {
+            "bin": 1,
+            "count": 5,
+            "mean_confidence": 0.1602,
+            "event_rate": 0.002
+          },
+          {
+            "bin": 2,
+            "count": 77,
+            "mean_confidence": 0.2128,
+            "event_rate": 0.0002
+          },
+          {
+            "bin": 3,
+            "count": 62,
+            "mean_confidence": 0.2633,
+            "event_rate": 0.0002
+          }
+        ]
+      },
+      "wind": {
+        "method": "histogram",
+        "bins": 12,
+        "bin_rate": [
+          0.00684931506849315,
+          0.001141552511415525,
+          0.00016307893020221786,
+          0.0002536783358701167,
+          0.00684931506849315,
+          0.00684931506849315,
+          0.00684931506849315,
+          0.00684931506849315,
+          0.00684931506849315,
+          0.00684931506849315,
+          0.00684931506849315,
+          0.00684931506849315
+        ],
+        "bin_count": [
+          0,
+          10,
+          82,
+          52,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "global_rate": 0.006849,
+        "alpha": 0.288,
+        "samples": 144,
+        "ece": 0.235861,
+        "reliability": [
+          {
+            "bin": 1,
+            "count": 10,
+            "mean_confidence": 0.1515,
+            "event_rate": 0.0011
+          },
+          {
+            "bin": 2,
+            "count": 82,
+            "mean_confidence": 0.2153,
+            "event_rate": 0.0002
+          },
+          {
+            "bin": 3,
+            "count": 52,
+            "mean_confidence": 0.2852,
+            "event_rate": 0.0003
+          }
+        ]
+      },
+      "hail": {
+        "method": "histogram",
+        "bins": 12,
+        "bin_rate": [
+          0.00684931506849315,
+          0.00684931506849315,
+          9.382623381497466e-05,
+          0.00684931506849315,
+          0.00684931506849315,
+          0.00684931506849315,
+          0.00684931506849315,
+          0.00684931506849315,
+          0.00684931506849315,
+          0.00684931506849315,
+          0.00684931506849315,
+          0.00684931506849315
+        ],
+        "bin_count": [
+          0,
+          0,
+          144,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "global_rate": 0.006849,
+        "alpha": 0.288,
+        "samples": 144,
+        "ece": 0.233078,
+        "reliability": [
+          {
+            "bin": 2,
+            "count": 144,
+            "mean_confidence": 0.2332,
+            "event_rate": 0.0001
+          }
+        ]
+      },
+      "tornado": {
+        "method": "histogram",
+        "bins": 12,
+        "bin_rate": [
+          9.382623381497466e-05,
+          0.00684931506849315,
+          0.00684931506849315,
+          0.00684931506849315,
+          0.00684931506849315,
+          0.00684931506849315,
+          0.00684931506849315,
+          0.00684931506849315,
+          0.00684931506849315,
+          0.00684931506849315,
+          0.00684931506849315,
+          0.00684931506849315
+        ],
+        "bin_count": [
+          144,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "global_rate": 0.006849,
+        "alpha": 0.288,
+        "samples": 144,
+        "ece": 0.045905,
+        "reliability": [
+          {
+            "bin": 0,
+            "count": 144,
+            "mean_confidence": 0.046,
+            "event_rate": 0.0001
+          }
+        ]
+      }
+    },
+    "schema_version": "memory_profile.v2"
+  },
+  "tianjin:4": {
+    "key": "tianjin:4",
+    "city": "Tianjin",
+    "month": 4,
+    "sample_count": 35,
+    "coverage_ratio": 1.0,
+    "valid_window": {
+      "start": "2025-04-11",
+      "end": "2025-04-13"
+    },
+    "profile_version": "memory.v2",
+    "code_version": "nogit",
+    "shrinkage": 1.0,
+    "generated_at": "2026-04-15T14:37:32.065868",
+    "agent_weights": {
+      "circulation": 0.9997,
+      "environment": 1.0013,
+      "objective_guidance": 1.0017,
+      "model_consensus": 0.9995,
+      "radar": 0.9997,
+      "nowcast": 0.9994,
+      "data_quality_guard": 0.9979,
+      "cross_source_consistency": 1.0007
+    },
+    "calibrators": {
+      "short_rain": {
+        "method": "histogram",
+        "bins": 12,
+        "bin_rate": [
+          0.0078125,
+          0.0625,
+          0.0625,
+          0.0625,
+          0.0625,
+          0.0625,
+          0.0625,
+          0.0625,
+          0.0625,
+          0.0625,
+          0.0625,
+          0.0625
+        ],
+        "bin_count": [
+          14,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "global_rate": 0.0625,
+        "alpha": 0.028,
+        "samples": 14,
+        "ece": 0.064795,
+        "reliability": [
+          {
+            "bin": 0,
+            "count": 14,
+            "mean_confidence": 0.0726,
+            "event_rate": 0.0078
+          }
+        ]
+      },
+      "wind": {
+        "method": "histogram",
+        "bins": 12,
+        "bin_rate": [
+          0.4375,
+          0.4296875,
+          0.4375,
+          0.4375,
+          0.4375,
+          0.4375,
+          0.4375,
+          0.4375,
+          0.4375,
+          0.4375,
+          0.4375,
+          0.4375
+        ],
+        "bin_count": [
+          0,
+          14,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "global_rate": 0.4375,
+        "alpha": 0.028,
+        "samples": 14,
+        "ece": 0.335338,
+        "reliability": [
+          {
+            "bin": 1,
+            "count": 14,
+            "mean_confidence": 0.0944,
+            "event_rate": 0.4297
+          }
+        ]
+      },
+      "hail": {
+        "method": "histogram",
+        "bins": 12,
+        "bin_rate": [
+          0.0078125,
+          0.0625,
+          0.0625,
+          0.0625,
+          0.0625,
+          0.0625,
+          0.0625,
+          0.0625,
+          0.0625,
+          0.0625,
+          0.0625,
+          0.0625
+        ],
+        "bin_count": [
+          14,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "global_rate": 0.0625,
+        "alpha": 0.028,
+        "samples": 14,
+        "ece": 0.057809,
+        "reliability": [
+          {
+            "bin": 0,
+            "count": 14,
+            "mean_confidence": 0.0656,
+            "event_rate": 0.0078
+          }
+        ]
+      },
+      "tornado": {
+        "method": "histogram",
+        "bins": 12,
+        "bin_rate": [
+          0.0078125,
+          0.0625,
+          0.0625,
+          0.0625,
+          0.0625,
+          0.0625,
+          0.0625,
+          0.0625,
+          0.0625,
+          0.0625,
+          0.0625,
+          0.0625
+        ],
+        "bin_count": [
+          14,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "global_rate": 0.0625,
+        "alpha": 0.028,
+        "samples": 14,
+        "ece": 0.003002,
+        "reliability": [
+          {
+            "bin": 0,
+            "count": 14,
+            "mean_confidence": 0.0108,
+            "event_rate": 0.0078
+          }
+        ]
+      }
+    },
+    "schema_version": "memory_profile.v2"
+  },
+  "global:4": {
+    "key": "global:4",
+    "city": "global",
+    "month": 4,
+    "sample_count": 245,
+    "coverage_ratio": 1.0,
+    "valid_window": {
+      "start": "2025-04-10",
+      "end": "2025-04-12"
+    },
+    "profile_version": "memory.v2",
+    "code_version": "nogit",
+    "shrinkage": 1.0,
+    "generated_at": "2026-04-15T14:37:32.065890",
+    "agent_weights": {
+      "cross_source_consistency": 1.000672,
+      "objective_guidance": 0.996243,
+      "circulation": 1.001414,
+      "environment": 0.9993,
+      "data_quality_guard": 0.997015,
+      "radar": 1.002186,
+      "model_consensus": 1.002043,
+      "nowcast": 1.001086
+    },
+    "calibrators": {},
+    "schema_version": "memory_profile.v2"
+  }
+}

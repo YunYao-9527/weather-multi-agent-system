@@ -1,0 +1,38 @@
+[
+  {
+    "case_id": "north_china_2025_03_01",
+    "city": "Tianjin",
+    "start_date": "2025-03-01",
+    "end_date": "2025-03-03",
+    "description": "历史强对流高发样例窗口",
+    "gate": {
+      "min_qualified_coverage": 0.6,
+      "min_test_samples": 24,
+      "max_brier": 0.35
+    }
+  },
+  {
+    "case_id": "north_china_2025_06_20",
+    "city": "Tianjin",
+    "start_date": "2025-06-20",
+    "end_date": "2025-06-22",
+    "description": "汛期窗口",
+    "gate": {
+      "min_qualified_coverage": 0.6,
+      "min_test_samples": 24,
+      "max_brier": 0.35
+    }
+  },
+  {
+    "case_id": "north_china_2025_07_29",
+    "city": "Beijing",
+    "start_date": "2025-07-28",
+    "end_date": "2025-07-30",
+    "description": "华北夏季对流活跃窗口",
+    "gate": {
+      "min_qualified_coverage": 0.55,
+      "min_test_samples": 18,
+      "max_brier": 0.38
+    }
+  }
+]

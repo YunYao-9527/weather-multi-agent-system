@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Severe Convection Agent Ops Console</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/web/style.css" />
+</head>
+<body>
+  <div class="bg-glow"></div>
+  <main class="shell">
+    <header class="top">
+      <div>
+        <h1>Severe Convection Agent Ops Console</h1>
+        <p>运维治理页：真值构建、窗口扫描、评估与演进（离线治理任务）</p>
+      </div>
+      <div class="status" id="healthStatus">checking...</div>
+    </header>
+
+    <section class="panel controls">
+      <div class="grid-4">
+        <label>Token
+          <input id="token" type="password" value="" placeholder="当前已关闭鉴权，可留空" />
+        </label>
+        <label>城市（英文/拼音）
+          <input id="city" type="text" value="Tianjin" />
+        </label>
+        <label>真值开始日期
+          <input id="truthStart" type="date" value="2025-03-01" />
+        </label>
+        <label>真值结束日期
+          <input id="truthEnd" type="date" value="2025-10-31" />
+        </label>
+      </div>
+
+      <div class="actions">
+        <button id="buildTruth">构建真值标签</button>
+        <button id="runAutoWindow">智能选窗并执行</button>
+        <button id="runEval">评估</button>
+        <button id="runEvolve">演进</button>
+        <button id="refreshGovernance">刷新治理视图</button>
+        <a class="button-link" href="/">返回主页（实时推理）</a>
+      </div>
+
+      <div class="summary" id="autoWindowSummary">智能选窗：未执行</div>
+      <small>这里是离线治理入口，建议由运维账号在固定时间窗口执行。</small>
+
+      <div class="busy hidden" id="busyBar">
+        <span class="spinner"></span>
+        <span id="busyText">处理中...</span>
+      </div>
+      <small>固定响应 schema：code / message / request_id / data；默认 Bearer 鉴权。</small>
+    </section>
+
+    <section class="panel">
+      <div class="panel-head">
+        <h2>LLM 证据层</h2>
+        <div class="status status-inline" id="llmStatusBadge">loading...</div>
+      </div>
+      <div class="grid-4 llm-grid">
+        <label>LLM Provider
+          <select id="llmProvider">
+            <option value="openai">openai</option>
+            <option value="deepseek">deepseek</option>
+          </select>
+        </label>
+        <label>LLM Mode
+          <select id="llmMode">
+            <option value="off">off</option>
+            <option value="shadow">shadow</option>
+            <option value="assist">assist</option>
+          </select>
+        </label>
+        <label>LLM Model
+          <input id="llmModel" type="text" value="gpt-4o-mini" />
+        </label>
+        <label>OpenAI Key
+          <input id="llmApiKey" type="password" value="" placeholder="留空=保持当前；仅在当前运行时生效" />
+        </label>
+        <label>控制
+          <div class="actions llm-actions">
+            <button id="refreshLLM">刷新 LLM 状态</button>
+            <button id="applyLLM">应用 LLM 配置</button>
+          </div>
+        </label>
+      </div>
+      <div class="summary" id="llmSummary">暂无</div>
+      <pre id="llmBox">暂无</pre>
+    </section>
+
+    <section class="split">
+      <div class="panel">
+        <h2>评估结果</h2>
+        <div class="summary" id="evalSummary">暂无</div>
+        <pre id="evalBox">暂无</pre>
+      </div>
+      <div class="panel">
+        <h2>演进结果</h2>
+        <div class="summary" id="evolveSummary">暂无</div>
+        <pre id="weightBox">暂无</pre>
+      </div>
+    </section>
+
+    <section class="split">
+      <div class="panel">
+        <h2>数据源与健康</h2>
+        <div class="summary" id="providerSummary">暂无</div>
+        <pre id="providerBox">暂无</pre>
+      </div>
+      <div class="panel">
+        <h2>注册中心</h2>
+        <div class="summary" id="registrySummary">暂无</div>
+        <pre id="registryBox">暂无</pre>
+      </div>
+    </section>
+
+    <section class="split">
+      <div class="panel">
+        <h2>真值版本</h2>
+        <div class="summary" id="truthSummary">暂无</div>
+        <div class="compare-controls">
+          <label>Truth A
+            <select id="truthVersionLeft"></select>
+          </label>
+          <label>Truth B
+            <select id="truthVersionRight"></select>
+          </label>
+          <button id="compareTruthVersions">对比真值版本</button>
+        </div>
+        <div id="truthCompareChart" class="compare-stack"></div>
+        <pre id="truthBox">暂无</pre>
+      </div>
+      <div class="panel">
+        <h2>活动对象</h2>
+        <div class="summary" id="objectsSummary">暂无</div>
+        <div id="objectsMiniTimeline" class="timeline compact"></div>
+        <pre id="objectsBox">暂无</pre>
+      </div>
+    </section>
+
+    <section class="split">
+      <div class="panel">
+        <h2>Replay Compare</h2>
+        <div class="compare-controls">
+          <label>Run A
+            <select id="runCompareLeft"></select>
+          </label>
+          <label>Run B
+            <select id="runCompareRight"></select>
+          </label>
+          <button id="compareRuns">对比运行结果</button>
+        </div>
+        <div class="compare-controls">
+          <label>Bundle A
+            <select id="bundleCompareLeft"></select>
+          </label>
+          <label>Bundle B
+            <select id="bundleCompareRight"></select>
+          </label>
+          <button id="compareBundles">对比回放包</button>
+        </div>
+        <div class="summary" id="replayCompareSummary">暂无</div>
+        <div id="replayCompareChart" class="compare-stack"></div>
+        <pre id="replayCompareBox">暂无</pre>
+      </div>
+      <div class="panel">
+        <h2>版本明细</h2>
+        <div class="summary" id="versionDetailSummary">暂无</div>
+        <pre id="versionDetailBox">暂无</pre>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>原始响应</h2>
+      <div class="summary" id="rawSummary">暂无</div>
+      <pre id="rawBox">暂无</pre>
+    </section>
+  </main>
+
+  <script src="/web/app.js?v=20260415_llm_1"></script>
+</body>
+</html>

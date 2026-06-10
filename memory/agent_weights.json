@@ -1,0 +1,64 @@
+{
+  "tianjin:4": {
+    "circulation": 0.9997,
+    "environment": 1.0013,
+    "objective_guidance": 1.0017,
+    "model_consensus": 0.9995,
+    "radar": 0.9997,
+    "nowcast": 0.9994,
+    "data_quality_guard": 0.9979,
+    "cross_source_consistency": 1.0007
+  },
+  "nanjing:4": {
+    "circulation": 0.9913,
+    "environment": 0.9763,
+    "objective_guidance": 1.0647,
+    "model_consensus": 0.9896,
+    "radar": 0.9969,
+    "nowcast": 0.9812
+  },
+  "rizhao:4": {
+    "circulation": 0.9798,
+    "environment": 1.005,
+    "objective_guidance": 1.0898,
+    "model_consensus": 0.9683,
+    "radar": 0.9819,
+    "nowcast": 0.9751
+  },
+  "liaocheng:4": {
+    "circulation": 0.98,
+    "environment": 1.0,
+    "objective_guidance": 1.0859,
+    "model_consensus": 0.9737,
+    "radar": 0.9881,
+    "nowcast": 0.9723
+  },
+  "qihe:4": {
+    "circulation": 0.9795,
+    "environment": 1.0024,
+    "objective_guidance": 1.0834,
+    "model_consensus": 0.9737,
+    "radar": 0.9907,
+    "nowcast": 0.9703
+  },
+  "tianjin:3": {
+    "circulation": 1.0053,
+    "environment": 0.9944,
+    "objective_guidance": 0.9861,
+    "model_consensus": 1.0082,
+    "radar": 1.0079,
+    "nowcast": 1.0048,
+    "data_quality_guard": 0.9931,
+    "cross_source_consistency": 1.0003
+  },
+  "wuhan:3": {
+    "circulation": 1.0273,
+    "environment": 0.9592,
+    "objective_guidance": 0.939,
+    "model_consensus": 1.0435,
+    "radar": 1.0427,
+    "nowcast": 1.0125,
+    "data_quality_guard": 0.9723,
+    "cross_source_consistency": 1.0035
+  }
+}

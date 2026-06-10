@@ -1,0 +1,3 @@
+$ErrorActionPreference = 'Stop'
+
+python -c "import datetime as dt; from weather_agent.evolver import optimize_agent_weights; res=optimize_agent_weights(city='Tianjin', start_date=dt.date(2025,4,11), end_date=dt.date(2025,4,13), truth_policy='require', min_truth_coverage=0.6, min_total_positive_labels=5, force_rebuild_truth=True, min_train_samples=20, min_calibration_samples=12, calibrator_method='histogram'); print('qualified_positive_labels:', res.get('qualified_positive_labels')); print('fallback_reason:', res.get('fallback_reason')); print('weights:', res.get('weights')); print('calibrators:', list((res.get('calibrators') or {}).keys()))"

@@ -1,0 +1,15 @@
+{
+  "source": "demo_local_radar_grid",
+  "generated_at": "2026-04-02T13:40:00+08:00",
+  "description": "示例本地雷达格点文件，可替换为业务系统导出的体扫/拼图结果。",
+  "cells": [
+    { "lat": 39.13, "lon": 117.20, "dbz": 42.0, "echo_top_km": 8.5, "vil": 21.2 },
+    { "lat": 39.06, "lon": 117.28, "dbz": 48.0, "echo_top_km": 10.3, "vil": 29.6 },
+    { "lat": 39.02, "lon": 117.36, "dbz": 51.0, "echo_top_km": 12.1, "vil": 35.4 },
+    { "lat": 38.97, "lon": 117.15, "dbz": 39.0, "echo_top_km": 7.9, "vil": 18.5 },
+    { "lat": 39.21, "lon": 117.11, "dbz": 44.0, "echo_top_km": 9.0, "vil": 24.1 },
+    { "lat": 39.25, "lon": 117.31, "dbz": 46.0, "echo_top_km": 9.8, "vil": 26.7 },
+    { "lat": 39.05, "lon": 117.05, "dbz": 37.0, "echo_top_km": 7.2, "vil": 14.9 },
+    { "lat": 38.89, "lon": 117.40, "dbz": 52.0, "echo_top_km": 12.8, "vil": 38.1 }
+  ]
+}

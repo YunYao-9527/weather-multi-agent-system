@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Severe Convection Agent Console</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="" />
+  <link rel="stylesheet" href="/web/style.css" />
+</head>
+<body>
+  <div class="bg-glow"></div>
+  <main class="shell">
+    <header class="top">
+      <div>
+        <h1>Severe Convection Agent Console</h1>
+        <p>辅助决策系统（非自动官方发布）：数据汇聚 -> 多 Agent 推理 -> 人工复核闸门 -> 审计闭环</p>
+      </div>
+      <div class="status" id="healthStatus">checking...</div>
+    </header>
+
+    <section class="panel controls">
+      <div class="grid-4">
+        <label>Token
+          <input id="token" type="password" value="" placeholder="当前已关闭鉴权，可留空" />
+        </label>
+        <label>城市（英文/拼音）
+          <input id="city" type="text" value="Tianjin" />
+        </label>
+        <label>落区（可空=自动）
+          <input id="area" type="text" value="" placeholder="例如：济南市历下区、天桥区" />
+        </label>
+        <label>建议发布阈值
+          <input id="minProb" type="number" step="0.01" min="0" max="1" value="0.55" />
+        </label>
+      </div>
+
+      <div class="actions">
+        <button id="locateCity">定位城市</button>
+        <button id="runLive">实时推理</button>
+        <a class="button-link" href="/web/ops.html">进入运维页（评估/演进）</a>
+      </div>
+      <small>主页仅保留实时业务推理，避免误操作。评估/演进与真值构建请在运维页执行。</small>
+
+      <div class="busy hidden" id="busyBar">
+        <span class="spinner"></span>
+        <span id="busyText">处理中...</span>
+      </div>
+      <small>固定响应 schema：code / message / request_id / data；默认 Bearer 鉴权。</small>
+    </section>
+
+    <section class="panel">
+      <div class="panel-head">
+        <h2>LLM 证据层</h2>
+        <div class="status status-inline" id="llmStatusBadge">loading...</div>
+      </div>
+      <div class="grid-4 llm-grid">
+        <label>LLM Provider
+          <select id="llmProvider">
+            <option value="openai">openai</option>
+            <option value="deepseek">deepseek</option>
+          </select>
+        </label>
+        <label>LLM Mode
+          <select id="llmMode">
+            <option value="off">off</option>
+            <option value="shadow">shadow</option>
+            <option value="assist">assist</option>
+          </select>
+        </label>
+        <label>LLM Model
+          <input id="llmModel" type="text" value="gpt-4o-mini" />
+        </label>
+        <label>OpenAI Key
+          <input id="llmApiKey" type="password" value="" placeholder="留空=保持当前；仅在当前运行时生效" />
+        </label>
+        <label>控制
+          <div class="actions llm-actions">
+            <button id="refreshLLM">刷新 LLM 状态</button>
+            <button id="applyLLM">应用 LLM 配置</button>
+          </div>
+        </label>
+      </div>
+      <div class="summary" id="llmSummary">暂无</div>
+      <pre id="llmBox">暂无</pre>
+    </section>
+
+    <section class="panel state-band" id="stateBand">
+      <div class="state-item"><span>系统状态</span><strong id="stateStatus">-</strong></div>
+      <div class="state-item"><span>Action</span><strong id="stateAction">-</strong></div>
+      <div class="state-item"><span>Readiness</span><strong id="stateReadiness">-</strong></div>
+      <div class="state-item"><span>数据质量</span><strong id="stateDataQuality">-</strong></div>
+      <div class="state-item"><span>代理依赖占比</span><strong id="stateProxy">-</strong></div>
+      <div class="state-item"><span>运行ID</span><strong id="stateRunId">-</strong></div>
+    </section>
+    <section class="split">
+      <div class="panel">
+        <h2>地图联动</h2>
+        <div class="map-tools">
+          <label class="inline-check"><input type="checkbox" id="radarToggle" /> 雷达图层</label>
+        </div>
+        <div id="map" class="map"></div>
+        <div class="hint" id="mapStatus">等待定位...</div>
+      </div>
+      <div class="panel">
+        <h2>数据来源与质量</h2>
+        <div class="summary" id="sourceSummary">暂无</div>
+        <pre id="sourceBox">暂无</pre>
+      </div>
+    </section>
+
+    <section class="split">
+      <div class="panel">
+        <h2>灾种概率（Hazard Probability）</h2>
+        <div class="summary" id="probSummary">暂无</div>
+        <div id="probBars"></div>
+      </div>
+      <div class="panel">
+        <h2>证据就绪度（Evidence Readiness）</h2>
+        <div class="summary" id="readinessSummary">暂无</div>
+        <div id="readinessBars"></div>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>证据链（Agent Evidence）</h2>
+      <div id="evidenceCards" class="cards"></div>
+    </section>
+
+    <section class="panel">
+      <h2>审计面板</h2>
+      <div class="summary" id="auditSummary">暂无</div>
+      <pre id="auditBox">暂无</pre>
+    </section>
+
+    <section class="split">
+      <div class="panel">
+        <h2>对象引擎</h2>
+        <div class="summary" id="objectSummary">暂无</div>
+        <div id="objectTimeline" class="timeline"></div>
+        <pre id="objectBox">暂无</pre>
+      </div>
+      <div class="panel">
+        <h2>策略与回放</h2>
+        <div class="summary" id="policySummary">暂无</div>
+        <div id="replayVerifyCard" class="metric-grid"></div>
+        <pre id="policyBox">暂无</pre>
+      </div>
+    </section>
+
+    <section class="split">
+      <div class="panel">
+        <h2>家族融合</h2>
+        <div class="summary" id="familySummary">暂无</div>
+        <div id="familyChart" class="compare-stack"></div>
+        <pre id="familyBox">暂无</pre>
+      </div>
+      <div class="panel">
+        <h2>追踪索引</h2>
+        <div class="summary" id="traceSummary">暂无</div>
+        <pre id="traceBox">暂无</pre>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>原始响应</h2>
+      <div class="summary" id="rawSummary">暂无</div>
+      <pre id="rawBox">暂无</pre>
+    </section>
+  </main>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+  <script src="/web/app.js?v=20260415_llm_1"></script>
+</body>
+</html>

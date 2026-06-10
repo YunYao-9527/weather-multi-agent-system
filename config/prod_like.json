@@ -1,0 +1,19 @@
+﻿{
+  "profile": "prod_like",
+  "issue_threshold": 0.60,
+  "clear_threshold": 0.42,
+  "min_readiness_score": 0.55,
+  "min_issue_duration_minutes": 30,
+  "min_clear_duration_minutes": 30,
+  "min_area_coverage_ratio": 0.20,
+  "max_conflict_score_for_auto_issue": 0.45,
+  "stale_radar_max_minutes": 60,
+  "proxy_weight_cap": 0.55,
+  "correlation_penalty": 0.15,
+  "window_minutes": 120,
+  "min_truth_coverage": 0.7,
+  "memory_min_samples": 48,
+  "radar_provider_priority": "local_grid,nowcoast,rainviewer",
+  "radar_grid_file": "data/radar_grids/latest.json",
+  "radar_grid_max_distance_km": 140
+}
