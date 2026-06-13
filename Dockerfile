@@ -22,4 +22,4 @@ ENV AGENT_ENABLE_AUTH=0
 
 EXPOSE 8000
 
-CMD ["uvicorn", "weather_agent.api:app", "--host", "0.0.0.0", "--port", "8000"]
+CMD ["sh", "-c", "uvicorn weather_agent.api:app --host 0.0.0.0 --port ${PORT:-8000}"]
