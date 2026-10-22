@@ -411,6 +411,7 @@ def api_health(req: Request):
         {
             "status": "ok",
             "auth_enabled": ENABLE_AUTH,
+            "public_demo": os.getenv("PUBLIC_DEMO", "0") == "1",
             "version": API_VERSION,
             "migrations": _MIGRATION_STATUS,
             "capabilities": {

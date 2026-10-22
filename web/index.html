@@ -41,9 +41,11 @@
       <div class="actions">
         <button id="locateCity">定位城市</button>
         <button id="runLive">实时推理</button>
-        <a class="button-link" href="/web/ops.html">进入运维页（评估/演进）</a>
+        <button id="runSample">运行合成观测示例</button>
+        <a class="button-link" id="opsLink" href="/web/ops.html">进入运维页（评估/演进）</a>
       </div>
-      <small>主页仅保留实时业务推理，避免误操作。评估/演进与真值构建请在运维页执行。</small>
+      <small>实时推理依赖外部气象数据；合成示例执行相同的后端决策与审计流程，不代表当前天气或官方预警。</small>
+      <p id="publicModeNote" hidden>公开演示仅开放研判与档案查询，管理和模型密钥配置需在私有环境完成。请勿输入个人信息。</p>
 
       <div class="busy hidden" id="busyBar">
         <span class="spinner"></span>

@@ -156,6 +156,8 @@ def test_llm_runtime_endpoint_supports_deepseek_key(monkeypatch):
 def test_public_demo_restricts_management_without_blocking_forecasts(monkeypatch):
     monkeypatch.setenv('PUBLIC_DEMO', '1')
     client = TestClient(app)
-    assert client.get('/api/v1/health').status_code == 200
+    health = client.get('/api/v1/health')
+    assert health.status_code == 200
+    assert health.json()['data']['public_demo'] is True
     assert client.post('/api/v1/runtime/llm', json={}).status_code == 403
     assert client.post('/api/v1/forecast/manual', json={}, headers=_auth()).status_code == 422

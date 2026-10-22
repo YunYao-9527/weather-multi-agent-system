@@ -76,6 +76,7 @@ const stateRunId = document.getElementById('stateRunId');
 
 const btnLocate = document.getElementById('locateCity');
 const btnLive = document.getElementById('runLive');
+const btnSample = document.getElementById('runSample');
 const btnEval = document.getElementById('runEval');
 const btnEvolve = document.getElementById('runEvolve');
 const btnAutoWindow = document.getElementById('runAutoWindow');
@@ -83,6 +84,8 @@ const btnBuildTruth = document.getElementById('buildTruth');
 const btnRefreshGovernance = document.getElementById('refreshGovernance');
 const btnRefreshLLM = document.getElementById('refreshLLM');
 const btnApplyLLM = document.getElementById('applyLLM');
+const managementButtons = [btnEval, btnEvolve, btnAutoWindow, btnBuildTruth, btnApplyLLM];
+let publicDemo = false;
 
 const busyBar = document.getElementById('busyBar');
 const busyText = document.getElementById('busyText');
@@ -114,9 +117,9 @@ function authHeader() {
 function setBusy(isBusy, text = '处理中...') {
   if (busyBar) busyBar.classList.toggle('hidden', !isBusy);
   if (busyText) busyText.textContent = text;
-  [btnLocate, btnLive, btnEval, btnEvolve, btnAutoWindow, btnBuildTruth, btnRefreshGovernance, btnRefreshLLM, btnApplyLLM].forEach((b) => {
+  [btnLocate, btnLive, btnSample, btnEval, btnEvolve, btnAutoWindow, btnBuildTruth, btnRefreshGovernance, btnRefreshLLM, btnApplyLLM].forEach((b) => {
     if (!b) return;
-    b.disabled = isBusy;
+    b.disabled = isBusy || (publicDemo && managementButtons.includes(b));
   });
 }
 
@@ -210,6 +213,15 @@ async function checkHealth() {
   try {
     const j = await (await fetch('/api/v1/health')).json();
     if (healthStatus) healthStatus.textContent = `${j.data.status} | v${j.data.version}`;
+    publicDemo = Boolean(j.data.public_demo);
+    if (publicDemo) {
+      document.getElementById('publicModeNote')?.removeAttribute('hidden');
+      document.getElementById('opsLink')?.setAttribute('hidden', '');
+      document.querySelectorAll('.llm-grid').forEach(element => { element.hidden = true; });
+      managementButtons.forEach(button => { if (button) button.disabled = true; });
+      if (tokenInput && !j.data.auth_enabled) tokenInput.closest('label').hidden = true;
+      if (llmBox) llmBox.hidden = true;
+    }
   } catch (e) {
     if (healthStatus) healthStatus.textContent = 'health failed';
   }
@@ -943,6 +955,34 @@ if (btnLive) btnLive.addEventListener('click', async () => {
   } finally {
     setBusy(false);
     setButtonLoading(btnLive, false);
+  }
+});
+
+if (btnSample) btnSample.addEventListener('click', async () => {
+  setButtonLoading(btnSample, true);
+  setBusy(true, '正在分析合成观测示例（非实时天气）...');
+  try {
+    const j = await postJson('/api/v1/forecast/manual', {
+      city: 'Tianjin', area: '合成观测示例（非实时）', auto_area: false,
+      min_issue_prob: Number(minProbInput.value || 0.55), save_run: true,
+      observation: {
+        vertical_velocity: -1.2, low_level_convergence: 0.72, cape: 1850,
+        dcape: 920, shear_0_6km: 18, t850_500: 25.2, wbz_km: 3.9,
+        humidity_low: 0.78, radar_dbz_max: 56, radar_bow_echo: true,
+        storm_motion_ms: 13,
+        prob_guidance: {short_rain: 0.71, wind: 0.63, hail: 0.36, tornado: 0.08},
+      },
+    });
+    renderLive(j.data, j);
+    rawSummary.textContent = '合成观测示例（非实时天气）\n' + rawSummary.textContent;
+    await loadAudit(j.data.run_id);
+    await loadTrace(j.request_id);
+  } catch (e) {
+    rawSummary.textContent = `示例运行失败：${String(e)}`;
+    rawBox.textContent = String(e);
+  } finally {
+    setBusy(false);
+    setButtonLoading(btnSample, false);
   }
 });
 
