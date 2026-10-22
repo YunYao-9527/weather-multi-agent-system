@@ -2,6 +2,8 @@
 
 > [在线项目页](https://yunyao-9527.github.io/weather-multi-agent-system/) · [云端运行说明](DEPLOYMENT_CLOUD.md)
 
+**[打开在线系统](https://yunyao-weather.onrender.com/)**：可使用真实观测适配器，或运行明确标注的合成观测示例，体验证据融合、决策与审计。公开版禁用管理写入和密钥配置，LLM 为可选能力。使用 Render Free，首次唤醒可能需要等待，数据不保证长期保存。不是官方预警服务。
+
 > 强对流预警多智能体系统 — 可信辅助决策原型
 
 [![Python](https://img.shields.io/badge/Python-3.10+-blue.svg)](https://python.org)
