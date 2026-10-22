@@ -4,6 +4,8 @@
 
 **[打开在线系统](https://yunyao-weather.onrender.com/)**：可使用真实观测适配器，或运行明确标注的合成观测示例，体验证据融合、决策与审计。公开版禁用管理写入和密钥配置，LLM 为可选能力。使用 Render Free，首次唤醒可能需要等待，数据不保证长期保存。不是官方预警服务。
 
+线上已启用 DeepSeek 官方 `deepseek-flash` 影子证据层，实际返回了结构化风险解释和置信度。影子证据用于复核，不进入加权决策，不直接改变预警建议。每天最多 20 次模型调用，单次最多输出 900 tokens。配置与限制见 [模型演示说明](DEEPSEEK_DEMO.md)。
+
 > 强对流预警多智能体系统 — 可信辅助决策原型
 
 [![Python](https://img.shields.io/badge/Python-3.10+-blue.svg)](https://python.org)
