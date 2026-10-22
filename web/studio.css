@@ -2,3 +2,4 @@
 .shell .summary,.shell .state-item{background:#eef3e9;color:#435c48;border:1px solid #d2dfca}.shell .top a{color:#567946;text-decoration:none;border-bottom:1px solid #b7c7ac}
 [hidden]{display:none!important}
 .shell{grid-template-columns:minmax(0,1fr)}.panel,.state-item,.card,.split>*{min-width:0}.summary,.state-item strong,.panel p,.panel small{overflow-wrap:anywhere}.actions{flex-wrap:wrap}.busy{max-width:100%;overflow-wrap:anywhere}.spinner{flex-shrink:0}
+.bar-track{overflow:hidden;background:#e3ebdf}.bar-fill{max-width:100%;background:#507b5e}.timeline{max-width:100%;min-width:0}.timeline-step,.metric-card,.compare-row{background:#f1f5ed;border-color:#d2dfca;color:#405b45}.timeline-step .meta{overflow-wrap:anywhere}

@@ -294,9 +294,11 @@ function renderBars(container, mapData, labels = {}) {
   if (!container) return;
   container.innerHTML = '';
   Object.entries(mapData || {}).forEach(([k, v]) => {
+    const value = Number(v);
+    if (!Number.isFinite(value) || value < 0 || value > 1) return;
     const row = document.createElement('div');
     row.className = 'bar';
-    const pct = Math.max(1, Number(v) * 100);
+    const pct = value * 100;
     row.innerHTML = `
       <div class="bar-head"><span>${labels[k] || k}</span><span>${(Number(v) * 100).toFixed(1)}%</span></div>
       <div class="bar-track"><div class="bar-fill" style="width:${pct}%"></div></div>
@@ -504,14 +506,16 @@ function renderProbAndReadiness(data) {
   const readiness = d.evidence_readiness_breakdown || {};
 
   renderBars(probBars, probs, HAZARD_LABELS);
-  renderBars(readinessBars, readiness, {
+  const readinessLabels = {
     evidence_strength: '证据强度',
     agreement_score: '一致性',
     data_quality_score: '数据质量',
     freshness_score: '时效',
     model_dispersion_score: '模式稳定性',
     conflict_control_score: '冲突可控性',
-  });
+  };
+  const readinessFactors = Object.fromEntries(Object.keys(readinessLabels).filter(key => readiness[key] != null).map(key => [key, readiness[key]]));
+  renderBars(readinessBars, readinessFactors, readinessLabels);
 
   const top = Object.entries(probs).sort((a, b) => b[1] - a[1])[0] || ['-', 0];
   probSummary.textContent = [
