@@ -37,3 +37,17 @@ def test_nightly_outputs_and_gate(monkeypatch, tmp_path: Path):
     assert Path(out["markdown"]).exists()
     summary = out["summary"]["summary"]
     assert summary["overall_gate_pass"] is True
+
+
+def test_failed_case_cannot_be_hidden_by_a_passing_case(monkeypatch, tmp_path):
+    monkeypatch.chdir(tmp_path)
+    cases = [{"case_id": "passed"}, {"case_id": "failed"}]
+    path = Path('cases.json')
+    path.write_text(json.dumps(cases), encoding='utf-8')
+    def run_case(case):
+        if case['case_id'] == 'failed':
+            raise RuntimeError('source unavailable')
+        return {"case_id": "passed", "gate": {"pass": True}}
+    monkeypatch.setattr(nightly, '_run_case', run_case)
+    result = nightly.run_nightly(path)
+    assert result['summary']['summary']['overall_gate_pass'] is False

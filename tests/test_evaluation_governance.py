@@ -5,6 +5,12 @@ import pytest
 from weather_agent import evaluator, evolver
 
 
+@pytest.fixture(autouse=True)
+def isolated_admin_resolver(monkeypatch):
+    # Governance tests exercise truth policies, not a public geocoding service.
+    monkeypatch.setattr("weather_agent.spatial_eval._reverse_admin", lambda lat, lon: {"label": "测试行政区"})
+
+
 def _fake_archive(start: dt.datetime, hours: int) -> dict:
     times = [(start + dt.timedelta(hours=i)).isoformat() for i in range(hours)]
 

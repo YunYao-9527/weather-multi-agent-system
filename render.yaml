@@ -2,9 +2,12 @@ services:
   - type: web
     name: weather-multi-agent-system
     runtime: docker
+    plan: free
     envVars:
       - key: AGENT_PROFILE
         value: dev
       - key: AGENT_ENABLE_AUTH
         value: "0"
+      - key: PUBLIC_DEMO
+        value: "1"
     healthCheckPath: /api/v1/health

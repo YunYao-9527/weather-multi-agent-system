@@ -249,6 +249,15 @@ API_VERSION = "0.3.1"
 
 app = FastAPI(title="Severe Convection Multi-Agent API", version=API_VERSION)
 
+
+@app.middleware("http")
+async def public_demo_boundary(request, call_next):
+    if os.getenv("PUBLIC_DEMO", "0") == "1" and request.method not in {"GET", "HEAD", "OPTIONS"} and request.url.path not in {
+        "/api/v1/forecast/live", "/api/v1/forecast/manual"
+    }:
+        return JSONResponse(status_code=403, content={"code": "DEMO_READ_ONLY", "message": "公开演示只开放预测功能，管理操作请在本地执行。"})
+    return await call_next(request)
+
 try:
     _MIGRATION_STATUS = run_all_migrations(create_backup=False)
 except Exception:

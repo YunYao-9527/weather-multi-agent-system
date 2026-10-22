@@ -117,8 +117,7 @@ def run_nightly(cases_path: str | Path = "data/cases/historical_cases.json", *, 
         except Exception as e:
             items.append({"case_id": case.get("case_id"), "city": case.get("city"), "error": str(e), "gate": {"pass": False}})
 
-    case_pass = [bool(it.get("gate", {}).get("pass", False)) for it in items if "error" not in it]
-    overall_pass = all(case_pass) if case_pass else False
+    overall_pass = bool(items) and all("error" not in item and item.get("gate", {}).get("pass", False) for item in items)
 
     payload = {
         "generated_at": dt.datetime.now().isoformat(),
