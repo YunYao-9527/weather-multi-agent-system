@@ -8,6 +8,7 @@ import requests
 from pydantic import BaseModel, Field
 
 from weather_agent.models import ObservationEnvelope
+from weather_agent.llm_budget import model_budget
 
 
 class HazardScorePayload(BaseModel):
@@ -148,6 +149,7 @@ class OpenAIResponsesClient:
         summary = _compact_envelope(envelope)
         schema = LLMSituationEvidencePayload.model_json_schema()
         system_prompt, user_prompt = _build_llm_prompts(summary, self.provider)
+        model_budget.reserve({'system': system_prompt, 'user': user_prompt})
         if self.provider == "deepseek":
             return self._generate_deepseek_chat_evidence(system_prompt, user_prompt)
         return self._generate_openai_responses_evidence(schema, system_prompt, user_prompt)
@@ -198,7 +200,7 @@ class OpenAIResponsesClient:
         user_prompt: str,
     ) -> LLMSituationEvidencePayload:
         body = {
-            "model": self.model or "deepseek-chat",
+            "model": self.model or "deepseek-flash",
             "messages": [
                 {"role": "system", "content": system_prompt},
                 {"role": "user", "content": user_prompt},
@@ -207,6 +209,7 @@ class OpenAIResponsesClient:
             "max_tokens": self.max_output_tokens,
             "response_format": {"type": "json_object"},
             "stream": False,
+            "thinking": {"type": "disabled"},
         }
         response = requests.post(
             f"{self.base_url}/chat/completions",
