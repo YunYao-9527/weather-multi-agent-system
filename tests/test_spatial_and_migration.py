@@ -2,6 +2,9 @@
 from pathlib import Path
 
 import sqlite3
+import os
+import subprocess
+import sys
 
 from weather_agent.migrations import apply_registry_migrations, migrate_memory_profiles
 from weather_agent.spatial_eval import admin_hit_bias, grid_hit_bias
@@ -56,3 +59,17 @@ def test_registry_migration_dry_run_keeps_schema_unchanged(tmp_path: Path):
     cols = {r[1] for r in conn.execute("PRAGMA table_info(predict_runs)").fetchall()}
     conn.close()
     assert "report_path" not in cols
+
+
+def test_api_bootstraps_registry_on_a_clean_filesystem(tmp_path: Path):
+    env = os.environ.copy()
+    env['PYTHONPATH'] = str(Path(__file__).resolve().parents[1])
+    env['AGENT_PROFILE'] = 'dev'
+    result = subprocess.run(
+        [sys.executable, '-c', 'import json; from weather_agent.api import _MIGRATION_STATUS; print(json.dumps(_MIGRATION_STATUS))'],
+        cwd=tmp_path, env=env, capture_output=True, text=True, timeout=20,
+    )
+    assert result.returncode == 0, result.stderr
+    status = json.loads(result.stdout.strip().splitlines()[-1])
+    assert 'error' not in status
+    assert status['registry']['count'] == 3

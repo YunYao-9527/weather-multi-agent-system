@@ -259,6 +259,7 @@ async def public_demo_boundary(request, call_next):
     return await call_next(request)
 
 try:
+    ExperimentRegistry()
     _MIGRATION_STATUS = run_all_migrations(create_backup=False)
 except Exception:
     _MIGRATION_STATUS = {"error": "migration_failed"}
